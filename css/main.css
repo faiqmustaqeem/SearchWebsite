@@ -465,13 +465,14 @@ legend {
   margin-bottom: 0;
 }
 
-.choices.is-disabled .choices__inner, .choices.is-disabled .choices__input {
+.choices.is-disabled .choices__inner,
+.choices.is-disabled .choices__input {
   background-color: #EAEAEA;
   cursor: not-allowed;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .choices.is-disabled .choices__item {
@@ -511,7 +512,8 @@ legend {
   opacity: .5;
 }
 
-.choices[data-type*="select-one"] .choices__button:hover, .choices[data-type*="select-one"] .choices__button:focus {
+.choices[data-type*="select-one"] .choices__button:hover,
+.choices[data-type*="select-one"] .choices__button:focus {
   opacity: 1;
 }
 
@@ -550,11 +552,13 @@ legend {
   margin-right: 0;
 }
 
-.choices[data-type*="select-multiple"] .choices__inner, .choices[data-type*="text"] .choices__inner {
+.choices[data-type*="select-multiple"] .choices__inner,
+.choices[data-type*="text"] .choices__inner {
   cursor: text;
 }
 
-.choices[data-type*="select-multiple"] .choices__button, .choices[data-type*="text"] .choices__button {
+.choices[data-type*="select-multiple"] .choices__button,
+.choices[data-type*="text"] .choices__button {
   position: relative;
   display: inline-block;
   margin-top: 0;
@@ -570,7 +574,10 @@ legend {
   opacity: .75;
 }
 
-.choices[data-type*="select-multiple"] .choices__button:hover, .choices[data-type*="select-multiple"] .choices__button:focus, .choices[data-type*="text"] .choices__button:hover, .choices[data-type*="text"] .choices__button:focus {
+.choices[data-type*="select-multiple"] .choices__button:hover,
+.choices[data-type*="select-multiple"] .choices__button:focus,
+.choices[data-type*="text"] .choices__button:hover,
+.choices[data-type*="text"] .choices__button:focus {
   opacity: 1;
 }
 
@@ -587,7 +594,8 @@ legend {
   overflow: hidden;
 }
 
-.is-focused .choices__inner, .is-open .choices__inner {
+.is-focused .choices__inner,
+.is-open .choices__inner {
   border-color: #b7b7b7;
 }
 
@@ -711,6 +719,7 @@ legend {
   .choices__list--dropdown .choices__item--selectable {
     padding-right: 100px;
   }
+
   .choices__list--dropdown .choices__item--selectable:after {
     content: attr(data-select-text);
     font-size: 12px;
@@ -720,11 +729,13 @@ legend {
     top: 50%;
     transform: translateY(-50%);
   }
+
   [dir="rtl"] .choices__list--dropdown .choices__item--selectable {
     text-align: right;
     padding-left: 100px;
     padding-right: 10px;
   }
+
   [dir="rtl"] .choices__list--dropdown .choices__item--selectable:after {
     right: auto;
     left: 10px;
@@ -750,9 +761,9 @@ legend {
 .choices__item--disabled {
   cursor: not-allowed;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   opacity: .5;
 }
 
@@ -768,7 +779,7 @@ legend {
   text-indent: -9999px;
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   border: 0;
   background-color: transparent;
   background-repeat: no-repeat;
@@ -815,11 +826,11 @@ legend {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
-      justify-content: center;
+  justify-content: center;
   -ms-flex-align: center;
-      align-items: center;
+  /* align-items: center; */
   font-family: 'Poppins', sans-serif;
-  background-color: #a598ee;
+  background-color: #c9c9c9;
   background-size: cover;
   background-position: center center;
   padding: 15px;
@@ -837,9 +848,9 @@ legend {
   display: flex;
   width: 100%;
   -ms-flex-pack: justify;
-      justify-content: space-between;
+  justify-content: space-between;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
@@ -874,7 +885,8 @@ legend {
   font-size: 16px;
 }
 
-.s003 form .inner-form .input-field input:hover, .s003 form .inner-form .input-field input:focus {
+.s003 form .inner-form .input-field input:hover,
+.s003 form .inner-form .input-field input:focus {
   box-shadow: none;
   outline: 0;
   border-color: #fff;
@@ -894,7 +906,7 @@ legend {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   padding: 10px 30px;
 }
 
@@ -903,7 +915,7 @@ legend {
   display: flex;
   padding: 0;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
 }
 
@@ -911,7 +923,7 @@ legend {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
   opacity: 1;
   color: #888;
@@ -921,7 +933,7 @@ legend {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-      align-items: center;
+  align-items: center;
   height: 100%;
   color: #555;
 }
@@ -956,7 +968,7 @@ legend {
 
 .s003 form .inner-form .input-field.second-wrap {
   -ms-flex-positive: 1;
-      flex-grow: 1;
+  flex-grow: 1;
 }
 
 .s003 form .inner-form .input-field.third-wrap {
@@ -970,7 +982,7 @@ legend {
   color: #fff;
   border: 0;
   cursor: pointer;
-  background: #63c76a;
+  background: #9ad3de;
   transition: all .2s ease-out, color .2s ease-out;
 }
 
@@ -979,7 +991,7 @@ legend {
 }
 
 .s003 form .inner-form .input-field.third-wrap .btn-search:hover {
-  background: #50c058;
+  background: #89bdd3;
 }
 
 .s003 form .inner-form .input-field.third-wrap .btn-search:focus {
@@ -996,34 +1008,42 @@ legend {
 @media screen and (max-width: 767px) {
   .s003 form .inner-form {
     -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
+    flex-wrap: wrap;
     padding: 20px;
   }
+
   .s003 form .inner-form .input-field {
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
+
   .s003 form .inner-form .input-field input {
     padding: 10px 15px;
   }
+
   .s003 form .inner-form .input-field.first-wrap {
     width: 100%;
     border-right: 0;
   }
+
   .s003 form .inner-form .input-field.first-wrap .choices__inner {
     padding: 10px 15px;
   }
+
   .s003 form .inner-form .input-field.first-wrap .choices[data-type*="select-one"]:after {
     right: 11.5px;
     border-color: #e5e5e5 transparent transparent transparent;
   }
+
   .s003 form .inner-form .input-field.second-wrap {
     width: 100%;
     margin-bottom: 30px;
   }
+
   .s003 form .inner-form .input-field.second-wrap input {
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
+
   .s003 form .inner-form .input-field.third-wrap {
     margin-bottom: 0;
     width: 100%;
