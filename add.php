@@ -1,44 +1,90 @@
 <?php
 require_once 'functions.php';
 
+$postType = -1;
 $status = -1;
+
+$inputID= '';
+$inputUrl= '';
+$inputName= '';
+
+function createOrUpdate($id, $name, $url)
+{
+	global $Connection, $status;
+
+	$idExists = Single_Value_Query("SELECT * from urls where id = '".mysqli_real_escape_string($Connection, $id)."'");
+
+	if ($idExists)
+	{
+		if(mysqli_query($Connection, "UPDATE urls set 
+			name = '".mysqli_real_escape_string($Connection, $name)."',
+			url = '".mysqli_real_escape_string($Connection, $url)."'
+			where id = '".mysqli_real_escape_string($Connection, $id)."'"))
+		{
+			$status = 2;
+		}
+		else
+		{
+			$status = 0;
+		}
+	}
+	else
+	{
+		if(mysqli_query($Connection, "INSERT INTO urls set 
+			id = '".mysqli_real_escape_string($Connection, $id)."',
+			name = '".mysqli_real_escape_string($Connection, $name)."',
+			url = '".mysqli_real_escape_string($Connection, $url)."'"))
+		{
+			$status = 1;
+		}
+		else
+		{
+			$status = 0;
+		}
+
+		if ($status == 0)
+			$inputID = $id;
+
+		if ($status == 0)
+			$inputUrl = $url;
+
+		if ($status == 0)
+			$inputName = $name;
+	}
+}
 
 if (isset($_POST['id']) && !empty($_POST['id']) &&
 	isset($_POST['url']) && !empty($_POST['url'])&& 
 	isset($_POST['name']) && !empty($_POST['name']))
 {
-	echo "INSERT INTO urls set 
-	id = '".mysqli_real_escape_string($Connection, $_POST['id'])."',
-	name = '".mysqli_real_escape_string($Connection, $_POST['name'])."',
-	url = '".mysqli_real_escape_string($Connection, $_POST['url'])."'";
-	if(mysqli_query($Connection, "INSERT INTO urls set 
-		id = '".mysqli_real_escape_string($Connection, $_POST['id'])."',
-		name = '".mysqli_real_escape_string($Connection, $_POST['name'])."',
-		url = '".mysqli_real_escape_string($Connection, $_POST['url'])."'"))
-	{
-		$status = 1;
-	}
-	else
-	{
-		$status = 0;
-	}
+	$postType = 0;
+	
+	createOrUpdate($_POST['id'], $_POST['name'], $_POST['url']);
 }
 
-// $maxID = Single_Value_Query("SELECT max(id) + 1 from urls");
+if (!empty($_FILES))
+{
+	$postType = 1;
 
-// $id = $maxID;
-$id = '';
+	require_once 'Classes/PHPExcel.php';
 
-if ($status == 0)
-	$id = $_POST['id'];
+	$Reader = PHPExcel_IOFactory::createReaderForFile($_FILES['file']['tmp_name']);
+	$Reader->setReadDataOnly(true);
+	$objPHPExcel = $Reader->load($_FILES['file']['tmp_name']);
+	$Sheet = $objPHPExcel->getSheet(0);
 
-$url= '';
-if ($status == 0)
-	$url = $_POST['url'];
+	for($i=2; ; $i++)
+	{
+		$fileID = $Sheet->getCell('A'.$i)->getValue();
+		$fileName = $Sheet->getCell('B'.$i)->getValue();
+		$fileUrl = $Sheet->getCell('C'.$i)->getValue();
 
-$name= '';
-if ($status == 0)
-	$name = $_POST['name'];
+		if ($fileID == '' || $fileName == '' || $fileUrl == '')
+			break;
+
+		createOrUpdate($fileID, $fileName, $fileUrl);
+	}
+}
 
 ?>
 
@@ -53,47 +99,57 @@ if ($status == 0)
 </head>
 <body>
 	<div class="s003">
+		<h1>Add new record</h1>
 		<?php 
-		if ($status === 0)
-			echo '<h1>Not added</h1><br>';
-			
-		else if ($status === 1)
-			echo '<h1>Added</h1><br>';
+		if ($postType == 0 && $status === 0)
+			echo '<h3 class="text-danger">New record not added</h3>';
+		else if ($postType == 0 && $status === 1)
+			echo '<h3 class="text-success">Added new record successfully</h3>';
+		else if ($postType == 0 && $status === 2)
+			echo '<h3 class="text-success">Existing record updated successfully</h3>';
 		?>
 		<form method="POST" accept="add.php">
 			<div class="inner-form">
 				<div class="input-field second-wrap">
-					<input id="id" name="id" type="text" placeholder="Enter id" value="<?php echo $id ?>" required />
+					<input id="id" name="id" type="text" placeholder="Enter id" value="<?php echo ($postType == 0 ? $inputID : '') ?>" required />
 				</div>
 				<div class="input-field second-wrap">
-					<input id="name" name="name" type="text" placeholder="Enter name" value="<?php echo $name ?>" required />
+					<input id="name" name="name" type="text" placeholder="Enter name" value="<?php echo ($postType == 0 ? $inputName : '') ?>" required />
 				</div>
 				<div class="input-field second-wrap">
-					<input id="url" name="url" type="text" placeholder="Enter url" value="<?php echo $url ?>" required />
+					<input id="url" name="url" type="text" placeholder="Enter url" value="<?php echo ($postType == 0 ? $inputUrl : '') ?>" required />
 				</div>
 				<div class="input-field third-wrap">
 					<button class="btn-search" type="submit">
-					<!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d=/></svg> -->
-					<!-- <img src="add.png" alt="ADD" height="42" width="42"> -->
-					<h3 style="color:white;">ADD</h3>
+						<h3 style="color:white;">ADD</h3>
 					</button>
 				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 
-	<form action="" method="post"
-            name="frmExcelImport" id="frmExcelImport" enctype="multipart/form-data">
-            <div>
-                <label>Choose Excel
-                    File</label> <input type="file" name="file"
-                    id="file" accept=".xls,.xlsx">
-                <button type="submit" id="submit" name="import"
-                    class="btn-submit">Import</button>
-        
-            </div>
-        
-        </form>
+		<hr>
+
+		<h1>Upload record file</h1>
+		<?php
+		if ($postType == 1 && $status === 0)
+			echo '<h3 class="text-danger">Some records not added/updated</h3>';
+		else if ($postType == 1 && ($status === 1 ||  $status === 2))
+			echo '<h3 class="text-success">Added/Updated record successfully</h3>';
+		?>
+		<form method="POST" accept="add.php" enctype="multipart/form-data">
+			<div class="inner-form">
+				<div class="input-field second-wrap">
+					<input type="file" name="file" id="file" accept=".xls,.xlsx"/>
+				</div>
+				<div class="input-field third-wrap">
+					<button class="btn-search" type="submit">
+						<h3 style="color:white;">IMPORT</h3>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
 	<script src="js/extention/choices.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
-$Connection = mysqli_connect('localhost', 'extendic_urluser', '123456', 'extendic_urldb');
+//$Connection = mysqli_connect('localhost', 'extendic_urluser', '123456', 'extendic_urldb');
+$Connection = mysqli_connect('localhost', 'root', '', 'search_websites');
 if (!$Connection || mysqli_errno($Connection))
 	die('Can not connect to database.');
 

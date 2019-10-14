@@ -21,10 +21,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `urls` (
-  `id` varchar(11) NOT NULL,
+  `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-
+  `url` varchar(255) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
@@ -35,7 +34,7 @@ INSERT INTO `urls` (`id`,`name`, `url`) VALUES
 ('a','google', 'google.com'),
 ('b', 'fb','facebook.com'),
 ('c', 'test','test.com'),
-('d', 'yahoo' 'yahoo.com');
+('d', 'yahoo', 'yahoo.com');
 
 --
 -- Indexes for dumped tables
