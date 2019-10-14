@@ -33,9 +33,10 @@ if (isset($_GET['search']) && !empty($_GET['search']))
 				</div>
 			</div>
 
-			<table style="width:100%">
+			<table style="width:100%" class="tableOne">
 				<tr>
 					<th>id</th>
+					<th>name</th>
 					<th>url</th> 
 				</tr>
 				<?php 
@@ -44,6 +45,7 @@ if (isset($_GET['search']) && !empty($_GET['search']))
 					?>
 					<tr>
 						<td><?php echo $url['id'] ?></td>
+						<td><?php echo $url['name'] ?></td>
 						<td><?php echo $url['url'] ?></td>
 					</tr>
 					<?php

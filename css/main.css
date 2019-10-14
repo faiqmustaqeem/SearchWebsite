@@ -16,6 +16,14 @@ body {
   margin: 0;
 }
 
+.tableOne {
+  margin:auto;
+}
+
+.tableOne td {
+  text-align:center;
+}
+
 /**
  * Add the correct display in IE 9-.
  */
